@@ -12,24 +12,53 @@
 html, body { height: 100%; margin: 0; }
 * { box-sizing: border-box; }
 
-.anim-fade-up { opacity: 0; transform: translateY(30px); }
-.anim-fade-up.in-view { opacity: 1; transform: translateY(0); }
-.anim-fade-in { opacity: 0; }
-.anim-fade-in.in-view { opacity: 1; }
-.anim-slide-left { opacity: 0; transform: translateX(-40px); }
-.anim-slide-left.in-view { opacity: 1; transform: translateX(0); }
-.anim-slide-right { opacity: 0; transform: translateX(40px); }
-.anim-slide-right.in-view { opacity: 1; transform: translateX(0); }
-.anim-scale-in { opacity: 0; transform: scale(0.95); }
-.anim-scale-in.in-view { opacity: 1; transform: scale(1); }
-.delay-1.in-view { transition-delay: 0.1s; }
-.delay-2.in-view { transition-delay: 0.2s; }
-.delay-3.in-view { transition-delay: 0.3s; }
-.delay-4.in-view { transition-delay: 0.4s; }
-.delay-5.in-view { transition-delay: 0.5s; }
-.anim-fade-up, .anim-fade-in, .anim-slide-left, .anim-slide-right, .anim-scale-in {
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
 }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(234,179,8,0.3); }
+  50% { box-shadow: 0 0 40px rgba(234,179,8,0.6); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes mapPulse {
+  0%, 100% { r: 6; opacity: 1; }
+  50% { r: 10; opacity: 0.5; }
+}
+@keyframes ripple {
+  0% { r: 8; opacity: 0.8; }
+  100% { r: 50; opacity: 0; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.anim-fade-up { animation: fadeUp 0.8s ease-out both; }
+.anim-fade-in { animation: fadeIn 1s ease-out both; }
+.anim-slide-left { animation: slideInLeft 0.8s ease-out both; }
+.anim-slide-right { animation: slideInRight 0.8s ease-out both; }
+.anim-scale-in { animation: scaleIn 0.6s ease-out both; }
+.delay-1 { animation-delay: 0.15s; }
+.delay-2 { animation-delay: 0.3s; }
+.delay-3 { animation-delay: 0.45s; }
+.delay-4 { animation-delay: 0.6s; }
+.delay-5 { animation-delay: 0.75s; }
 
 .hero-gradient {
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, #0f172a 100%);
@@ -38,14 +67,14 @@ html, body { height: 100%; margin: 0; }
   width: 60px; height: 4px; border-radius: 2px;
 }
 .card-hover {
-  transition: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .card-hover:hover {
-  transform: none;
-  box-shadow: none;
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
-.float-anim { animation: none; }
-.glow-btn { animation: none; }
+.float-anim { animation: float 3s ease-in-out infinite; }
+.glow-btn { animation: pulseGlow 2.5s ease-in-out infinite; }
 
 .map-container {
   background: #1e293b;
@@ -106,27 +135,27 @@ html, body { height: 100%; margin: 0; }
    </section><!-- SERVICES -->
    <section id="services" class="w-full" style="background:#0f172a;padding:80px 0;">
     <div class="max-w-6xl mx-auto px-6">
-     <div class="text-center mb-14 anim-fade-up">
+     <div class="text-center mb-14">
       <div class="accent-line mx-auto mb-4" style="background:#eab308;"></div>
       <h2 class="text-3xl md:text-4xl font-bold mb-3" style="font-family:'Outfit',sans-serif;color:#f8fafc;">What We Do</h2>
       <p class="text-base" style="color:#64748b;">Comprehensive electrical and gas solutions for your home</p>
      </div>
      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="card-hover anim-fade-up delay-1 rounded-2xl p-8" style="background:#1e293b;border:1px solid rgba(234,179,8,0.1);">
+      <div class="card-hover rounded-2xl p-8" style="background:#1e293b;border:1px solid rgba(234,179,8,0.1);">
        <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-5" style="background:rgba(234,179,8,0.1);">
         <i data-lucide="zap" style="width:28px;height:28px;color:#eab308;"></i>
        </div>
        <h3 class="text-xl font-bold mb-3" style="font-family:'Outfit',sans-serif;color:#f8fafc;">Electrical Work</h3>
        <p class="text-sm leading-relaxed" style="color:#94a3b8;">Full rewires, consumer unit upgrades, fault finding, lighting installations, and EICR certifications.</p>
       </div>
-      <div class="card-hover anim-fade-up delay-2 rounded-2xl p-8" style="background:#1e293b;border:1px solid rgba(234,179,8,0.1);">
+      <div class="card-hover rounded-2xl p-8" style="background:#1e293b;border:1px solid rgba(234,179,8,0.1);">
        <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-5" style="background:rgba(234,179,8,0.1);">
         <i data-lucide="flame" style="width:28px;height:28px;color:#eab308;"></i>
        </div>
        <h3 class="text-xl font-bold mb-3" style="font-family:'Outfit',sans-serif;color:#f8fafc;">Gas Services</h3>
        <p class="text-sm leading-relaxed" style="color:#94a3b8;">Boiler installations, servicing &amp; repairs, gas safety inspections, central heating systems, and landlord certificates.</p>
       </div>
-      <div class="card-hover anim-fade-up delay-3 rounded-2xl p-8" style="background:#1e293b;border:1px solid rgba(234,179,8,0.1);">
+      <div class="card-hover rounded-2xl p-8" style="background:#1e293b;border:1px solid rgba(234,179,8,0.1);">
        <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-5" style="background:rgba(234,179,8,0.1);">
         <i data-lucide="shield-check" style="width:28px;height:28px;color:#eab308;"></i>
        </div>
@@ -138,15 +167,18 @@ html, body { height: 100%; margin: 0; }
    </section><!-- SERVICE AREA MAP -->
    <section id="area" class="w-full" style="background:#1e293b;padding:80px 0;">
     <div class="max-w-6xl mx-auto px-6">
-     <div class="text-center mb-14 anim-fade-up">
+     <div class="text-center mb-14">
       <div class="accent-line mx-auto mb-4" style="background:#eab308;"></div>
       <h2 class="text-3xl md:text-4xl font-bold mb-3" style="font-family:'Outfit',sans-serif;color:#f8fafc;">Our Service Area</h2>
       <p class="text-base" style="color:#64748b;">Based near Reading — covering a wide radius across Southern England</p>
      </div>
      <div class="flex flex-col lg:flex-row items-center gap-10">
-      <div class="flex-1 w-full anim-slide-left delay-1">
+      <div class="flex-1 w-full">
        <div class="map-container p-6" style="border:1px solid rgba(234,179,8,0.15);">
-        <svg viewbox="0 0 500 400" width="100%" style="max-width:500px;margin:0 auto;display:block;"><!-- Simplified southern England outline --> <path d="M80,50 L150,30 L220,25 L300,35 L370,20 L430,40 L460,80 L470,130 L480,180 L460,230 L440,270 L400,310 L350,340 L300,360 L240,370 L180,360 L130,340 L90,300 L60,260 L40,210 L30,160 L40,110 L60,70 Z" fill="#0f172a" stroke="rgba(234,179,8,0.2)" stroke-width="1.5" /> <!-- Service radius circle --> <circle cx="290" cy="180" r="120" fill="rgba(234,179,8,0.06)" stroke="rgba(234,179,8,0.2)" stroke-width="1" stroke-dasharray="6,4" /> <circle cx="290" cy="180" r="80" fill="rgba(234,179,8,0.08)" stroke="rgba(234,179,8,0.15)" stroke-width="1" stroke-dasharray="4,4" /> <!-- Reading - HQ --> <circle cx="290" cy="180" r="8" fill="#eab308" /> <circle cx="290" cy="180" r="14" fill="none" stroke="#eab308" stroke-width="1.5" opacity="0.5" /> <text x="290" y="165" text-anchor="middle" fill="#eab308" font-size="11" font-weight="700" font-family="Outfit,sans-serif">
+        <svg viewbox="0 0 500 400" width="100%" style="max-width:500px;margin:0 auto;display:block;"><!-- Simplified southern England outline --> <path d="M80,50 L150,30 L220,25 L300,35 L370,20 L430,40 L460,80 L470,130 L480,180 L460,230 L440,270 L400,310 L350,340 L300,360 L240,370 L180,360 L130,340 L90,300 L60,260 L40,210 L30,160 L40,110 L60,70 Z" fill="#0f172a" stroke="rgba(234,179,8,0.2)" stroke-width="1.5" /> <!-- Service radius circle --> <circle cx="290" cy="180" r="120" fill="rgba(234,179,8,0.06)" stroke="rgba(234,179,8,0.2)" stroke-width="1" stroke-dasharray="6,4" /> <circle cx="290" cy="180" r="80" fill="rgba(234,179,8,0.08)" stroke="rgba(234,179,8,0.15)" stroke-width="1" stroke-dasharray="4,4" /> <!-- Reading - HQ --> <circle cx="290" cy="180" r="8" fill="#eab308" /> <circle cx="290" cy="180" r="14" fill="none" stroke="#eab308" stroke-width="1.5" opacity="0.5">
+          <animate attributename="r" values="14;28;14" dur="2.5s" repeatcount="indefinite" />
+          <animate attributename="opacity" values="0.5;0;0.5" dur="2.5s" repeatcount="indefinite" />
+         </circle> <text x="290" y="165" text-anchor="middle" fill="#eab308" font-size="11" font-weight="700" font-family="Outfit,sans-serif">
           READING
          </text> <text x="290" y="205" text-anchor="middle" fill="#64748b" font-size="8" font-family="DM Sans,sans-serif">
           ⚡ HQ
@@ -172,7 +204,7 @@ html, body { height: 100%; margin: 0; }
       </div>
       <div class="flex-1 w-full">
        <div class="space-y-5">
-        <div class="anim-slide-right delay-1 flex items-start gap-4 p-5 rounded-xl" style="background:rgba(234,179,8,0.05);border:1px solid rgba(234,179,8,0.1);">
+        <div class="flex items-start gap-4 p-5 rounded-xl" style="background:rgba(234,179,8,0.05);border:1px solid rgba(234,179,8,0.1);">
          <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(234,179,8,0.15);">
           <i data-lucide="map-pin" style="width:20px;height:20px;color:#eab308;"></i>
          </div>
@@ -181,7 +213,7 @@ html, body { height: 100%; margin: 0; }
           <p class="text-sm" style="color:#94a3b8;">Our home base, covering Berkshire and surrounding counties</p>
          </div>
         </div>
-        <div class="anim-slide-right delay-2 flex items-start gap-4 p-5 rounded-xl" style="background:rgba(234,179,8,0.05);border:1px solid rgba(234,179,8,0.1);">
+        <div class="flex items-start gap-4 p-5 rounded-xl" style="background:rgba(234,179,8,0.05);border:1px solid rgba(234,179,8,0.1);">
          <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(234,179,8,0.15);">
           <i data-lucide="compass" style="width:20px;height:20px;color:#eab308;"></i>
          </div>
@@ -190,7 +222,7 @@ html, body { height: 100%; margin: 0; }
           <p class="text-sm" style="color:#94a3b8;">London, Oxford, Bristol, Southampton, Brighton, and everywhere in between</p>
          </div>
         </div>
-        <div class="anim-slide-right delay-3 flex items-start gap-4 p-5 rounded-xl" style="background:rgba(234,179,8,0.05);border:1px solid rgba(234,179,8,0.1);">
+        <div class="flex items-start gap-4 p-5 rounded-xl" style="background:rgba(234,179,8,0.05);border:1px solid rgba(234,179,8,0.1);">
          <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(234,179,8,0.15);">
           <i data-lucide="clock" style="width:20px;height:20px;color:#eab308;"></i>
          </div>
@@ -206,13 +238,13 @@ html, body { height: 100%; margin: 0; }
    </section><!-- REVIEWS -->
    <section id="reviews" class="w-full" style="background:#0f172a;padding:80px 0;">
     <div class="max-w-6xl mx-auto px-6">
-     <div class="text-center mb-14 anim-fade-up">
+     <div class="text-center mb-14">
       <div class="accent-line mx-auto mb-4" style="background:#eab308;"></div>
       <h2 class="text-3xl md:text-4xl font-bold mb-3" style="font-family:'Outfit',sans-serif;color:#f8fafc;">What Our Customers Say</h2>
       <p class="text-base" style="color:#64748b;">Rated 5 stars across the board</p>
      </div>
      <div class="grid grid-cols-1 md:grid-cols-3 gap-6"><!-- Review 1 -->
-      <div class="card-hover anim-fade-up delay-1 rounded-2xl p-7" style="background:#1e293b;border:1px solid rgba(234,179,8,0.1);">
+      <div class="card-hover rounded-2xl p-7" style="background:#1e293b;border:1px solid rgba(234,179,8,0.1);">
        <div class="flex gap-1 mb-4">
         <svg width="20" height="20" viewbox="0 0 20 20" fill="#eab308">
          <path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z" />
@@ -245,7 +277,7 @@ html, body { height: 100%; margin: 0; }
         </div>
        </div>
       </div><!-- Review 2 -->
-      <div class="card-hover anim-fade-up delay-2 rounded-2xl p-7" style="background:#1e293b;border:1px solid rgba(234,179,8,0.1);">
+      <div class="card-hover rounded-2xl p-7" style="background:#1e293b;border:1px solid rgba(234,179,8,0.1);">
        <div class="flex gap-1 mb-4">
         <svg width="20" height="20" viewbox="0 0 20 20" fill="#eab308">
          <path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z" />
@@ -263,13 +295,4 @@ html, body { height: 100%; margin: 0; }
          <path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z" />
         </svg>
        </div>
-       <p class="text-sm leading-relaxed mb-5" style="color:#cbd5e1;">"Brilliant service from start to finish. Had a new boiler installed and the whole process was seamless. The engineer explained everything clearly, left the place spotless, and the price was very fair. Top-notch gas work."</p>
-       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm" style="background:rgba(234,179,8,0.15);color:#eab308;">
-         SP
-        </div>
-        <div>
-         <div class="font-semibold text-sm" style="color:#f8fafc;">
-          Sarah P.
-         </div>
-         <div class="text-xs
+       <p class="text-sm leading-relaxed mb-5" style="color:#cbd5e1;
